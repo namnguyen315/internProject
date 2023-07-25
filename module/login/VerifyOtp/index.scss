@@ -1,0 +1,51 @@
+@import url("https://fonts.googleapis.com/css2?family=Gilroy:wght@400;500;600&display=swap");
+
+$font-family: "Gilroy", sans-serif;
+$width-signIn: 74px;
+$active: 26px;
+.containerVerify {
+  height: 100%;
+  width: 400px;
+
+  .lable {
+    padding: 30px;
+    padding-bottom: 10px;
+    text-align: center;
+    color: rgb(34, 97, 170);
+    font-size: 21px;
+  }
+  .lableDescription {
+    text-align: center;
+    font-size: 15px;
+  }
+  .container-verify {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    justify-content: center;
+    .pt-20 {
+      padding-top: 0px;
+    }
+    .pt-20:first-child {
+      margin-right: 40px;
+      .ant-row {
+        width: 100px;
+      }
+    }
+    .ant-btn {
+      height: 40px;
+    }
+  }
+  .resendOTP {
+    color: black;
+    margin-bottom: 30px;
+    padding-right: 30px;
+    text-align: end;
+    a:hover {
+      color: red;
+    }
+  }
+}

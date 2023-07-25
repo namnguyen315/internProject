@@ -1,6 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Gilroy:wght@400;500;600&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Gilroy:wght@400;500;600&display=swap");
 
-$font-family: 'Gilroy', sans-serif;
+$font-family: "Gilroy", sans-serif;
 $width-signIn: 74px;
 $active: 26px;
 
@@ -15,37 +15,34 @@ $active: 26px;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background-color: #f6f6f6;
 
-  .top-site{
-    width: 100vw;
+  .top-site {
+    width: calc(100vw - 201px);
     height: 43px;
     top: 98px;
     left: 201px;
     border-radius: 21px;
     display: flex;
     flex-direction: row;
+    position: absolute;
 
-
-    .main-menu{
+    .main-menu {
       width: 494px;
       height: 16px;
-      top: 109px;
-      left: 201px;
       position: absolute;
-      
-      ul{
+
+      ul {
         display: flex;
         flex-direction: row;
         justify-content: space-between;
 
-        li{
-
-          a{
+        li {
+          a {
             width: 74px;
             height: 16px;
             top: 109px;
             left: 621px;
-
 
             font-family: $font-family;
             font-weight: 500;
@@ -53,28 +50,28 @@ $active: 26px;
             line-height: 21px;
             letter-spacing: 0.06em;
             text-align: left;
-
           }
         }
       }
     }
-    .language{
+    .language {
       width: 120px;
       height: 16px;
-      top: 110px;
-      left: 1393px;
       position: absolute;
+      left: 1190px;
+      margin-left: -20px;
 
       .ant-select {
         width: 100%;
-        border: none
+        border: none;
       }
-      .ant-select-selector{
+      .ant-select-selector {
         border: none;
         text-align: left;
         box-shadow: none;
+        background-color: inherit;
       }
-      .ant-select-selection-item{
+      .ant-select-selection-item {
         overflow: visible;
         font-family: $font-family;
         // font-size: 17px;
@@ -83,98 +80,151 @@ $active: 26px;
         letter-spacing: 0.06em;
         text-align: left;
       }
-      .ant-select-arrow{
+      .ant-select-arrow {
         margin-left: 120px;
         align-items: center;
         justify-items: center;
-        color:  #9CA3AF;
+        color: #9ca3af;
       }
     }
-    .signIn, .register{
+    .signIn,
+    .register {
       display: flex;
-      top: 98px;
       position: absolute;
-      font-family: Gilroy;
+      font-family: $font-family;
       // font-size: 17px;
+      margin-left: -20px;
       font-weight: 700;
       line-height: 21px;
       letter-spacing: 0.06em;
       text-align: center;
-      align-items: center;
       justify-content: center;
-      color: #4461F2;
+      color: #4461f2;
       cursor: pointer;
-
-      .actived, .inactive{
+      p {
+        z-index: 1;
+      }
+      .actived,
+      .inactive {
         height: 42px;
         position: absolute;
+        margin-top: -10px;
       }
-      
-    }
-    .signIn{
-      width: 74px;
-      height: 42px;
-      left: 1530px;
-
-      .actived{
-
+      .actived {
         width: 26px;
-        border-bottom:solid 3px #4461F2;
+        border-bottom: solid 3px #4461f2;
       }
-    }
-    .register{
-      width: 112px;
-      height: 42px;
-      left: 1609px;
-      
-      .inactive{
+      .inactive {
         width: 112px;
         border-radius: 21px;
-        padding-top:10%;
+        padding-top: 10%;
 
-        background: #FFFFFF;
-        box-shadow: 0px 4px 4px 0px #0000000D;
-        z-index: -999;
-
+        background: #ffffff;
+        box-shadow: 0px 4px 4px 0px #0000000d;
+        z-index: 0;
       }
+    }
+    .signIn {
+      width: 74px;
+      height: 42px;
+      left: 1330px;
+      z-index: 1;
+    }
+    .register {
+      width: 112px;
+      height: 42px;
+      left: 1430px;
+      z-index: 1;
     }
   }
-  .bottom-site{
+  .bottom-site {
     display: flex;
     flex-direction: row;
-    .background{
-      .text{}
-      .ellipse1{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    .background {
+      .text {
+        position: absolute;
+        left: 199px;
+        font-family: $font-family;
+        h1 {
+          font-size: 58px;
+          font-weight: 700;
+          line-height: 77px;
+          letter-spacing: 0em;
+          text-align: left;
+          position: absolute;
+          width: 607px;
+          height: 141px;
+          top: 241px;
+        }
+
+        p {
+          width: 290px;
+          height: 63px;
+          top: 459px;
+          position: absolute;
+
+          font-family: $font-family;
+          font-size: 23px;
+          font-weight: 500;
+          line-height: 28px;
+          letter-spacing: 0em;
+          text-align: left;
+
+          a {
+            font-family: $font-family;
+            font-size: 23px;
+            font-weight: 700;
+            line-height: 28px;
+            letter-spacing: 0em;
+            text-align: left;
+            color: #4461f2;
+          }
+        }
+      }
+      .ellipse1 {
         width: 226px;
         height: 226px;
+        top: 291px;
+        left: 142px;
         opacity: 0.44999998807907104px;
-        background-color: #DDA82A;
-;
+        background-color: #dda82a;
+        position: absolute;
         border-radius: 50%;
         filter: blur(150px);
-
       }
-      .ellipse2{
+      .ellipse2 {
         width: 226px;
         height: 226px;
         opacity: 0.44999998807907104px;
-        background-color: #4461F2;
-;
+        background-color: #4461f2;
+        position: absolute;
+        top: 557px;
+        left: 346px;
+
         border-radius: 50%;
         filter: blur(150px);
       }
     }
-    .picture{
+    .picture {
       background: url("../../public/backgroundLogin.png") no-repeat;
       width: 545px;
       height: 449px;
-
+      top: 272px;
+      left: 660px;
+      position: absolute;
     }
     .form-container {
       display: flex;
       justify-content: center;
       align-items: center;
       flex-direction: column;
+      top: 219px;
+      left: 1321px;
+      position: absolute;
+      width: 400px;
       // max-width: 40%;
       // max-height: 100vh;
       // width: 35%;
@@ -189,4 +239,3 @@ $active: 26px;
     }
   }
 }
-  

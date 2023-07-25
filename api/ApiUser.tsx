@@ -16,9 +16,18 @@ export interface ILoginBody {
   password: string;
 }
 export interface IRegisterBody {
+  email: string;
   username: string;
   password: string;
 }
+export interface IVerifyBody {
+  email: string;
+  otp: string;
+}
+export interface ISendOtpBody {
+  email: string;
+}
+
 type UserGender = "Other" | "Male" | "Female";
 
 export interface IRegisterAccountBody {
@@ -127,6 +136,8 @@ export interface ISetPassword {
 const path = {
   login: "/auth/login",
   register: "/auth/register",
+  sendOtp: "/auth/send-otp",
+  verifyOtp: "/auth/verify-otp",
   changePassword: "/users/change-password",
   forgotpassword: "/auth/forgot-password",
   setpassword: "/auth/set-password",
@@ -211,6 +222,19 @@ function login(body: ILoginBody): Promise<IAccountInfo> {
     {displayError: true}
   );
 }
+function verify(body: IVerifyBody): Promise<IAccountInfo> {
+  return fetcher(
+    {url: path.verifyOtp, method: "post", data: body},
+    {displayError: true}
+  );
+}
+
+function sendOtp(body: ISendOtpBody) {
+  return fetcher(
+    {url: path.sendOtp, method: "post", data: body},
+    {displayError: true}
+  );
+}
 function register(body: IRegisterBody): Promise<IAccountInfo> {
   return fetcher(
     {url: path.register, method: "post", data: body},
@@ -219,7 +243,10 @@ function register(body: IRegisterBody): Promise<IAccountInfo> {
 }
 
 function forgotPassword(body: IForgotPassword): Promise<IUserLogin> {
-  return fetcher({url: path.forgotpassword, method: "post", data: body});
+  return fetcher(
+    {url: path.forgotpassword, method: "post", data: body},
+    {displayError: false}
+  );
 }
 
 function setPassword(body: ISetPassword): Promise<IUserLogin> {
@@ -308,6 +335,8 @@ function getAuthToken(): string | undefined {
 export default {
   login,
   register,
+  sendOtp,
+  verify,
   forgotPassword,
   setPassword,
   isLogin,

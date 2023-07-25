@@ -16,12 +16,12 @@ export function Salary(): JSX.Element {
   const date = new Date();
   const [year, setYear] = useState<number>(date.getFullYear());
 
-  const getListTotalSalary = (): Promise<IDataSalary[]> => {
-    return ApiSalary.getMyListTotalSalary(year);
-  };
+  // const getListTotalSalary = (): Promise<IDataSalary[]> => {
+  //   return ApiSalary.getMyListTotalSalary(year);
+  // };
 
-  const {data} =
-    useQuery(queryKeys.GET_LIST_TOTAL_SALARY_OF_USER, getListTotalSalary) || [];
+  // // const {data} =
+  //   useQuery(queryKeys.GET_LIST_TOTAL_SALARY_OF_USER, getListTotalSalary) || [];
 
   const dataYear = (): JSX.Element => {
     const year = [];
@@ -150,7 +150,7 @@ export function Salary(): JSX.Element {
       >
         {dataYear()}
       </Select>
-      <Table
+      {/* <Table
         columns={columns}
         dataSource={data?.sort((a, b) => {
           const dateA = new Date(a.date);
@@ -164,7 +164,7 @@ export function Salary(): JSX.Element {
         bordered
         className="hover-pointer mt-4"
         onRow={onRow}
-      />
+      /> */}
     </div>
   );
 }

@@ -19,7 +19,7 @@ export function NewPassword({changeTab, data}: SignInProps): JSX.Element {
     values: ISetPassword,
     {setSubmitting}: {setSubmitting: (isSubmitting: boolean) => void}
   ): void => {
-    const regex = /^[0-9]{6,6}$/g;
+    const regex = /^[0-9]{4,4}$/g;
     if (
       values.newPassword &&
       regex.test(values.otp) &&
@@ -68,10 +68,10 @@ export function NewPassword({changeTab, data}: SignInProps): JSX.Element {
           });
           return;
         }
-        const regex = /^[0-9]{6,6}$/g;
+        const regex = /^[0-9]{4,4}$/g;
         if (!regex.test(values.otp)) {
           notification.error({
-            message: "OTP phải là số nguyên 6 ký tự!",
+            message: "OTP phải là số nguyên 4 ký tự!",
           });
         }
       }}

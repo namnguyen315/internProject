@@ -8,14 +8,29 @@ import ApiUser, {ILoginBody} from "@app/api/ApiUser";
 import {useDispatch} from "react-redux";
 import {loginUser} from "@app/redux/slices/UserSlice";
 import {IAccountInfo} from "@app/types";
+import {BsFacebook, BsApple} from "react-icons/bs";
+import {FcGoogle} from "react-icons/fc";
+import {useState} from "react";
+import {validateSignIn} from "@app/validate/user";
 
 interface SignInProps {
   changeTab: (tab: string) => void;
 }
+
 export function SignIn({changeTab}: SignInProps): JSX.Element {
+  const [errors, setErrors] = useState({
+    userValidate: {
+      message: "",
+      style: "LightGrey",
+    },
+    passwordValidate: {
+      message: "",
+      style: "LightGrey",
+    },
+  });
   const dispatch = useDispatch();
   const loginMutation = useMutation(ApiUser.login);
-
+  console.log(errors);
   const handleLogin = (
     values: ILoginBody,
     {setSubmitting}: {setSubmitting: (isSubmitting: boolean) => void}
@@ -27,54 +42,48 @@ export function SignIn({changeTab}: SignInProps): JSX.Element {
           onSuccess: (res: IAccountInfo) => {
             dispatch(loginUser({...res}));
             localStorage.setItem("role", res.role?.id?.toString() || "0");
-            setSubmitting(false);
+            setSubmitting(true);
             window.location.replace("/");
           },
           onError: (error) => {
             setSubmitting(false);
+            setErrors({
+              ...errors,
+              passwordValidate: {
+                ...errors.passwordValidate,
+                message: "*Mật khẩu và tài khoản không chính xác",
+              },
+            });
           },
         }
       );
     } else {
+      console.log("abcd");
       setSubmitting(false);
     }
   };
-
   return (
     <Formik
       initialValues={{username: "", password: ""}}
-      validate={(values): void => {
-        console.log("test", values);
-        if (!values.username) {
-          notification.error({
-            message: "Tài khoản và mật khẩu không được để trống!",
-          });
-        }
-      }}
-      validateOnChange={false}
+      validate={(values) => validateSignIn(values, [errors, setErrors])}
+      validateOnChange={true}
       onSubmit={handleLogin}
     >
       {({values, handleChange, isSubmitting, handleSubmit}): JSX.Element => (
         <div className="container-sign-in">
           <Form onFinish={handleSubmit} className="container-sign-in">
-            <div className="header-wrapper">
-              <Image
-                className="login-image"
-                src="img/logo.png"
-                preview={false}
-              />
-              <div className="login-text">Đăng nhập</div>
-            </div>
-            <div>
+            <div style={{color: "red"}}>
               <TextInput
                 label="Tài khoản"
                 placeholder="Nhập tài khoản"
                 value={values.username}
                 handleChange={handleChange}
                 name="username"
+                style={errors.userValidate.style}
               />
             </div>
-            <div className="pt-20">
+            <div className="validate">{errors.userValidate.message}</div>
+            <div>
               <TextInput
                 label="Mật khẩu"
                 placeholder="Nhập mật khẩu"
@@ -82,8 +91,10 @@ export function SignIn({changeTab}: SignInProps): JSX.Element {
                 handleChange={handleChange}
                 name="password"
                 type="password"
+                style={errors.passwordValidate.style}
               />
             </div>
+            <div className="validate">{errors.passwordValidate.message}</div>
             <div className="flex justify-end">
               <span
                 role="button"
@@ -91,24 +102,32 @@ export function SignIn({changeTab}: SignInProps): JSX.Element {
                 className="forgot-pass pt-20"
                 onClick={(): void => changeTab("forgotPassword")}
               >
-                Quên mật khẩu?
-              </span>
-              <span
-                role="button"
-                tabIndex={0}
-                className="sign-up pt-20"
-                onClick={(): void => changeTab("signUp")}
-              >
-                Sign Up
+                Recover Password ?
               </span>
             </div>
 
             <ButtonSubmit
-              label="Đăng nhập"
+              label="Sign In"
               isSubmitting={isSubmitting}
               classRow="pt-20"
             />
           </Form>
+          <div className="line">
+            <div className="line-l"></div>
+            <p>Or continue with</p>
+            <div className="line-l"></div>
+          </div>
+          <div className="auth-form">
+            <div className="google-auth">
+              <FcGoogle className="icon" />
+            </div>
+            <div className="apple-auth">
+              <BsApple className="icon" />
+            </div>
+            <div className="facebook-auth">
+              <BsFacebook className="icon" />
+            </div>
+          </div>
         </div>
       )}
     </Formik>

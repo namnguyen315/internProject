@@ -19,6 +19,7 @@ export function ButtonSubmit({
         type="primary"
         htmlType="submit"
         loading={isSubmitting}
+        style={{backgroundColor: "#4461F2"}}
       >
         {label}
       </Button>

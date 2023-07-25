@@ -1,23 +1,18 @@
 .container-sign-up {
+  width: 400px;
   border-radius: 8px;
   min-width: 100%;
-  padding: 40px;
-  .header-wrapper {
+  background-color: #f6f6f6;
+
+  .validate {
+    width: 100%;
+    height: 40px;
     display: flex;
-    flex-direction: column;
     align-items: center;
-    .sign-up-image {
-      width: 15vh;
-      height: 15vh;
-    }
-    .sign-up-text {
-      color: $text-color;
-      font-size: 28px;
-      font-weight: $font-weight-bold;
-      padding-top: 30px;
-    }
+    padding-left: 10px;
+    color: red;
   }
   .pt-20 {
-    padding-top: 20px;
+    padding-top: 0px;
   }
 }

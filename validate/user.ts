@@ -88,3 +88,117 @@ export const layout = {
   labelCol: {span: 9},
   wrapperCol: {span: 15},
 };
+
+export const validateSignIn = (
+  values: {username: string; password: string},
+  [errors, setErrors]: any
+) : any => {
+  console.log("test", values);
+  if (!values.username && !values.password) {
+    return setErrors({
+      userValidate: {
+        message: "",
+        style: "red",
+      },
+      passwordValidate: {
+        message: "Tài khoản và mật khẩu không được để trống",
+        style: "red",
+      },
+    });
+  }
+  if (!values.username) {
+    return setErrors({
+      userValidate: {
+        message: "Tài khoản không được để trống",
+        style: "red",
+      },
+      passwordValidate: {
+        message: "",
+        style: "lightGrey",
+      },
+    });
+  }
+  if (!values.password) {
+    return setErrors({
+      userValidate: {
+        message: "",
+        style: "lightGrey",
+      },
+      passwordValidate: {
+        message: "Mật khẩu không được để trống",
+        style: "red",
+      },
+    });
+  } else {
+    setErrors({
+      userValidate: {
+        message: "",
+        style: "lightGrey",
+      },
+      passwordValidate: {
+        message: "",
+        style: "lightGrey",
+      },
+    });
+  }
+};
+
+export const validateSignUp = (
+  values: {
+    email: string;
+    username: string;
+    password: string;
+    confirmPassword: string;
+  },
+  [errors, setErrors]: any
+) => {
+  let newErrors = {...errors};
+
+  // Validate email
+  newErrors = {
+    ...newErrors,
+    emailValidate: !!values.email
+      ? /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/.test(values.email)
+        ? {message: "", style: "lightGrey"}
+        : {message: "Email không hợp lệ", style: "red"}
+      : {message: "Email Không được để trống", style: "red"},
+  };
+
+  // Validate username
+  newErrors = {
+    ...newErrors,
+    userValidate: !!values.username
+      ? /^[A-Za-z0-9_]+$/.test(values.username)
+        ? {message: "", style: "lightGrey"}
+        : {
+            message: "Tài khoản chỉ được chứa chữ cái, số và dấu gạch dưới",
+            style: "red",
+          }
+      : {message: "Tài khoản không được để trống", style: "red"},
+  };
+
+  // Validate password
+  newErrors = {
+    ...newErrors,
+    passwordValidate: !!values.password
+      ? values.password.length >= 6
+        ? {message: "", style: "lightGrey"}
+        : {message: "Mật khẩu phải chứa ít nhất 6 ký tự", style: "red"}
+      : {message: "Password không được để trống", style: "red"},
+  };
+
+  // Validate confirmPassword
+  newErrors = {
+    ...newErrors,
+    confirmPasswordValidate: !!values.confirmPassword
+      ? values.confirmPassword === values.password
+        ? {message: "", style: "lightGrey"}
+        : {
+            message: "Confirm password không trùng khớp với mật khẩu",
+            style: "red",
+          }
+      : {message: "Confirm không được để trống", style: "red"},
+  };
+
+  setErrors(newErrors);
+};

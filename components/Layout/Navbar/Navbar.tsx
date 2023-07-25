@@ -13,6 +13,7 @@ import {queryKeys} from "@app/utils/constants/react-query";
 import {useRouter} from "next/router";
 import {ModalChangePassword} from "@app/components/Layout/Navbar/ModalChangePassword";
 import "./Navbar.scss";
+import Link from "next/link";
 /**
  *
  */
@@ -64,24 +65,50 @@ export default function Navbar(): JSX.Element {
    * @returns {*}
    */
   const renderDropdown = (): JSX.Element => (
-    <Menu>
-      <Menu.Item key="0" onClick={() => setToggleModal(true)}>
-        {toggleModal && (
-          <ModalChangePassword isModalVisible setToggleModal={setToggleModal} />
-        )}
-        <div>
-          <Icon icon="BlockUser" size={20} color="#000" className="mr-2" />
-          Đổi mật khẩu
-        </div>
-      </Menu.Item>
-      <Menu.Divider />
-      <Menu.Item key="1" onClick={handleLogout}>
-        <div>
-          <Icon icon="SignOut" size={20} color="#000" className="mr-2" />
-          Đăng xuất
-        </div>
-      </Menu.Item>
-    </Menu>
+    <>
+      <div className="inforUser">
+        <Image
+          src={dataUser?.data?.avatar || "/img/avatar/avatar.jpg"}
+          preview={false}
+          width={30}
+          height={30}
+          fallback="/img/avatar/avatar.jpg"
+          className="rounded-full"
+          alt="avatar"
+        />
+        <p>{dataUser?.data?.email}</p>
+      </div>
+      <Menu>
+        <Menu.Item key="0" onClick={() => setToggleModal(true)}>
+          {toggleModal && (
+            <ModalChangePassword
+              isModalVisible
+              setToggleModal={setToggleModal}
+            />
+          )}
+          <div>
+            <Icon icon="BlockUser" size={20} color="#000" className="mr-2" />
+            Đổi mật khẩu
+          </div>
+        </Menu.Item>
+        <Menu.Divider />
+        <Menu.Item key="1" onClick={handleLogout}>
+          <div>
+            <Icon icon="SignOut" size={20} color="#000" className="mr-2" />
+            Đăng xuất
+          </div>
+        </Menu.Item>
+        <Menu.Divider />
+        <Menu.Item key="2" onClick={handleLogout}>
+          <Link href="/updateUser">
+            <div>
+              <Icon icon="User" size={20} color="#000" className="mr-2" />
+              Cập nhật tài khoản
+            </div>
+          </Link>
+        </Menu.Item>
+      </Menu>
+    </>
   );
 
   return (

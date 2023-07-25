@@ -89,11 +89,12 @@ function confirmLogout(
   // }
 }
 
-function displayError(dataError: IDataError): void {
+function displayError(dataError: IDataError) {
   try {
     const {errorCode} = dataError;
     let errorMessage;
     let errorMessageMain;
+    const err = {errmessage: ""};
 
     const error = ListErrorMessage.find((dt) => dt.error_code === errorCode);
     if (error) {
@@ -104,13 +105,17 @@ function displayError(dataError: IDataError): void {
     }
 
     notification.error({
-      message: errorMessageMain || "Có lỗi xảy ra. Hãy thử lại!",
+      message: errorMessageMain || errorCode || "Có lỗi xảy ra. Hãy thử lại!1",
       description: errorMessage,
       duration: 3,
     });
+    err.errmessage =
+      errorMessageMain || errorCode || "Có lỗi xảy ra. Hãy thử lại!2";
+    console.log(err.errmessage);
+    return err.errmessage;
   } catch (e) {
     notification.error({
-      message: "Có lỗi xảy ra. Hãy thử lại!",
+      message: "Có lỗi xảy ra. Hãy thử lại!3",
       description: _.toString(e),
       duration: 3,
     });
