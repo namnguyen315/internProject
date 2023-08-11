@@ -1,10 +1,11 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import {Image, Modal, Select, Upload, notification} from "antd";
-import {Formik, useFormik} from "formik";
+import {useFormik} from "formik";
 import React, {useState, useEffect} from "react";
 import "./ModalCreateCompany.scss";
 import Icon from "@app/components/Icon/Icon";
 import {TextInput} from "@app/components/TextInput";
-import {values} from "lodash";
 import {validateCreateWorkspace} from "@app/validate/user";
 import {ICreateCompanies, createCompany} from "../../../api/ApiCompany";
 import {useMutation, useQueryClient} from "react-query";
@@ -34,7 +35,7 @@ export function ModalCreateCompany({
       style: "lightGray",
     },
   });
-  let data = new FormData();
+  const data = new FormData();
   const queryClient = useQueryClient();
   const handleSubmit = (values: ICreateCompanies): void => {
     // company.mutate(data, {
@@ -86,7 +87,7 @@ export function ModalCreateCompany({
     formik.values.photoFile = file;
     setImage(URL.createObjectURL(file));
   };
-  const handleOk = (values: any) => {
+  const handleOk = () => {
     data.append("photoFile", formik.values.photoFile);
     data.append("memberSize", formik.values.memberSize);
     data.append("website", formik.values.website);
@@ -104,7 +105,10 @@ export function ModalCreateCompany({
         },
       });
     } else {
-      notification.info;
+      notification.error({
+        message: "Vui lòng nhập đầy đủ tên và quy mô làm việc",
+        duration: 3,
+      });
     }
   };
   const handleCancel = () => {
@@ -116,7 +120,7 @@ export function ModalCreateCompany({
       <Modal
         visible={isModalVisible}
         onOk={(): void => {
-          handleOk(values);
+          handleOk();
         }}
         onCancel={handleCancel}
         okText="Tạo không gian làm việc"

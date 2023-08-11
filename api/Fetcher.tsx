@@ -1,3 +1,5 @@
+/* eslint-disable consistent-return */
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import axios, {AxiosError, AxiosRequestConfig, AxiosResponse} from "axios";
 import {notification} from "antd";
 import _ from "lodash";

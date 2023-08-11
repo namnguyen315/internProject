@@ -1,4 +1,6 @@
-import {message} from "antd";
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
+/* eslint-disable consistent-return */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export const validateMessages = {
   // eslint-disable-next-line no-template-curly-in-string
   required: "${label} không được để trống!",
@@ -130,18 +132,17 @@ export const validateSignIn = (
         style: "red",
       },
     });
-  } else {
-    setErrors({
-      userValidate: {
-        message: "",
-        style: "lightGrey",
-      },
-      passwordValidate: {
-        message: "",
-        style: "lightGrey",
-      },
-    });
   }
+  setErrors({
+    userValidate: {
+      message: "",
+      style: "lightGrey",
+    },
+    passwordValidate: {
+      message: "",
+      style: "lightGrey",
+    },
+  });
 };
 
 export const validateSignUp = (
@@ -158,7 +159,7 @@ export const validateSignUp = (
   // Validate email
   newErrors = {
     ...newErrors,
-    emailValidate: !!values.email
+    emailValidate: values.email
       ? /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/.test(values.email)
         ? {message: "", style: "lightGrey"}
         : {message: "Email không hợp lệ", style: "red"}
@@ -168,7 +169,7 @@ export const validateSignUp = (
   // Validate username
   newErrors = {
     ...newErrors,
-    userValidate: !!values.username
+    userValidate: values.username
       ? /^[A-Za-z0-9_]+$/.test(values.username)
         ? {message: "", style: "lightGrey"}
         : {
@@ -181,7 +182,7 @@ export const validateSignUp = (
   // Validate password
   newErrors = {
     ...newErrors,
-    passwordValidate: !!values.password
+    passwordValidate: values.password
       ? values.password.length >= 6
         ? {message: "", style: "lightGrey"}
         : {message: "Mật khẩu phải chứa ít nhất 6 ký tự", style: "red"}
@@ -191,7 +192,7 @@ export const validateSignUp = (
   // Validate confirmPassword
   newErrors = {
     ...newErrors,
-    confirmPasswordValidate: !!values.confirmPassword
+    confirmPasswordValidate: values.confirmPassword
       ? values.confirmPassword === values.password
         ? {message: "", style: "lightGrey"}
         : {
@@ -217,7 +218,7 @@ export const validateNewPassWord = (
   // Validate password
   newErrors = {
     ...newErrors,
-    passWord: !!values.newPassword
+    passWord: values.newPassword
       ? values.newPassword.length >= 6
         ? {message: "", style: "lightGrey"}
         : {message: "Mật khẩu phải chứa ít nhất 6 ký tự", style: "red"}
@@ -227,7 +228,7 @@ export const validateNewPassWord = (
   // Validate confirmPassword
   newErrors = {
     ...newErrors,
-    confirmPassWord: !!values.confirmPass
+    confirmPassWord: values.confirmPass
       ? values.confirmPass === values.newPassword
         ? {message: "", style: "lightGrey"}
         : {
@@ -239,7 +240,7 @@ export const validateNewPassWord = (
   const regex = /^[0-9]{4,4}$/g;
   newErrors = {
     ...newErrors,
-    otp: !!values.otp
+    otp: values.otp
       ? regex.test(values.otp)
         ? {message: "", style: "lightGrey"}
         : {message: "Mã OTP là các số nguyên có 4 ký tự", style: "red"}
@@ -264,7 +265,7 @@ export const validateCreateWorkspace = (
 
   newErrors = {
     ...newErrors,
-    displayName: !!values.displayName
+    displayName: values.displayName
       ? {message: "", style: "lightGrey"}
       : {message: "Tên không gian làm việc không được để trống", style: "red"},
   };
@@ -274,18 +275,18 @@ export const validateCreateWorkspace = (
     /^(https?:\/\/)?(www\.)?([a-zA-Z0-9-]+\.)*[a-zA-Z0-9-]+\.[a-zA-Z]{2,}(\/.*)*$/;
   newErrors = {
     ...newErrors,
-    website: !!values.website
+    website: values.website
       ? urlPattern.test(values.website)
         ? {message: "", style: "lightGrey"}
         : {message: "Website không đúng định dạng", style: "red"}
       : {message: "", style: "lightGrey"},
   };
 
-  //validate email
+  // validate email
   const regex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
   newErrors = {
     ...newErrors,
-    contactEmail: !!values.contactEmail
+    contactEmail: values.contactEmail
       ? regex.test(values.contactEmail)
         ? {message: "", style: "lightGrey"}
         : {message: "Email không hợp lệ", style: "red"}

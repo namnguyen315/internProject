@@ -1,19 +1,14 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable react/button-has-type */
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import React, {useEffect, useState} from "react";
 import "./index.scss";
-import ApiUser from "@app/api/ApiUser";
 import {ICompanyBody, getAllCompany} from "@app/api/ApiCompany";
 import {useQuery} from "react-query";
-import {Image, Input, Select, Table} from "antd";
+import {Image, Input, Table} from "antd";
 import {BiPlus, BiSearch, BiSolidUserDetail} from "react-icons/bi";
-import {useSelector} from "react-redux";
-import {useRouter} from "next/router";
-import {useDispatch} from "react-redux";
-import {IRootState} from "@app/redux/store";
-import {IUserLogin} from "@app/types";
-import {queryKeys} from "@app/utils/constants/react-query";
 import {ModalCreateCompany} from "@app/components/Layout/Sidebar/ModalCreateCompany";
 import {ColumnsType} from "antd/es/table";
-import Config from "@app/config";
 import {AiOutlineDelete} from "react-icons/ai";
 import Link from "next/link";
 
@@ -23,7 +18,7 @@ export function Companies() {
 
   const [toggleModal, setToggleModal] = useState(false);
 
-  const {data, isLoading, error, refetch} = useQuery<ICompanyBody[]>(
+  const {data, refetch} = useQuery<ICompanyBody[]>(
     ["companies"],
     getAllCompany
   );
@@ -34,44 +29,6 @@ export function Companies() {
     setListCompany(companies);
   }, [companies]);
 
-  const router = useRouter();
-  const date = new Date();
-  const [year, setYear] = useState<number>(date.getFullYear());
-
-  const dataYear = (): JSX.Element => {
-    const year = [];
-    for (let i = Config.NOW.YEAR; i <= date.getFullYear(); i++) {
-      year.push(i);
-    }
-    return (
-      <>
-        {year.map((el, index) => (
-          <Select.Option key={index} value={el}>
-            {el}
-          </Select.Option>
-        ))}
-      </>
-    );
-  };
-
-  const onRow = (record: ICompanyBody): {onDoubleClick: () => void} => {
-    const month = new Date(record.createdAt || "");
-    return {
-      onDoubleClick: (): void => {
-        // router.push({
-        //   pathname: baseURL.SALARY.SALARY_DETAIL,
-        //   query: {
-        //     month: month.getMonth() + 1,
-        //     year: year,
-        //     id: record.id,
-        //     userId: record.user.id,
-        //     onsiteSalary: record.onsiteSalary,
-        //     state: record.state,
-        //   },
-        // });
-      },
-    };
-  };
   const columns: ColumnsType<ICompanyBody> = [
     {
       title: "STT",
@@ -168,7 +125,7 @@ export function Companies() {
               />
             </button>
           </div>
-          <div className="divide-line"></div>
+          <div className="divide-line" />
           <div className="delete-button">
             <button>
               <AiOutlineDelete

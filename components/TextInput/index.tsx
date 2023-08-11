@@ -1,8 +1,8 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import "./index.scss";
 import {Input, Row} from "antd";
 import {ChangeEvent, useCallback} from "react";
 import {EyeInvisibleOutlined, EyeTwoTone} from "@ant-design/icons";
-import {CSSProperties} from "@emotion/serialize";
 
 interface TextInputProps {
   type?: string;
@@ -46,7 +46,7 @@ export function TextInput({
           value={value}
           onChange={handleChange}
           onBlur={handleBlur}
-          allowClear={true}
+          allowClear
           style={inputStyle}
           disabled={disable}
         />
@@ -60,7 +60,7 @@ export function TextInput({
           value={value}
           onChange={handleChange}
           onBlur={handleBlur}
-          allowClear={true}
+          allowClear
           style={inputStyle}
           disabled={disable}
         />

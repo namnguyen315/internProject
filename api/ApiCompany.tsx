@@ -1,4 +1,4 @@
-import {promises} from "dns";
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {fetcher} from "./Fetcher";
 
 const path = {

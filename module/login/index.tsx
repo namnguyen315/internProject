@@ -1,3 +1,10 @@
+/* eslint-disable react/jsx-key */
+/* eslint-disable react/jsx-no-constructed-context-values */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable no-unused-expressions */
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
+/* eslint-disable @typescript-eslint/no-empty-function */
+/* eslint-disable import/no-cycle */
 import "./index.scss";
 import React, {createContext, useState} from "react";
 import {NewPassword} from "@app/module/login/NewPassword";
@@ -7,6 +14,7 @@ import {SignUp} from "@app/module/login/SignUp";
 import Link from "next/link";
 import {Select} from "antd";
 import {VerifyOtp} from "@app/module/login/VerifyOtp";
+
 const handleChange = (value: string) => {
   console.log(`selected ${value}`);
 };
@@ -98,7 +106,7 @@ export function Login(): JSX.Element {
             handleClickBtnSignIn("signIn");
           }}
         >
-          <div className={styleSignIn}></div>
+          <div className={styleSignIn} />
           <p>Sign In</p>
         </div>
         <div
@@ -107,7 +115,7 @@ export function Login(): JSX.Element {
             handleClickBtnSignIn("signUp");
           }}
         >
-          <div className={styleSignUp}></div>
+          <div className={styleSignUp} />
           <p>Register</p>
         </div>
       </div>
@@ -128,10 +136,10 @@ export function Login(): JSX.Element {
               </a>
             </p>
           </div>
-          <div className="ellipse1"></div>
-          <div className="ellipse2"></div>
+          <div className="ellipse1" />
+          <div className="ellipse2" />
         </div>
-        <div className="picture"></div>
+        <div className="picture" />
         <div className="form-container">
           <div className="form">
             <DataContext.Provider

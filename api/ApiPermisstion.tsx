@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import {fetcher, fetcherWithMetadata, IMetadata} from "@app/api/Fetcher";
 
 const path = {

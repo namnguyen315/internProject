@@ -1,13 +1,12 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import "./index.scss";
 import React, {useState} from "react";
 import {Formik} from "formik";
-import {Form, notification} from "antd";
+import {Form} from "antd";
 import {TextInput} from "@app/components/TextInput";
 import {ButtonSubmit} from "@app/components/ButtonSubmit";
 import {useMutation} from "react-query";
 import ApiUser, {IForgotPassword} from "@app/api/ApiUser";
-
-import {LeftOutlined} from "@ant-design/icons";
 import Icon from "@app/components/Icon/Icon";
 
 interface SignInProps {
@@ -70,14 +69,13 @@ export function ForgotPassword({changeTab, setData}: SignInProps): JSX.Element {
             message: "Vui lòng nhập email đúng định dạng",
             style: "red",
           });
-        } else {
-          return setValidateEmail({
-            message: "",
-            style: "lightGrey",
-          });
         }
+        return setValidateEmail({
+          message: "",
+          style: "lightGrey",
+        });
       }}
-      validateOnChange={true}
+      validateOnChange
       onSubmit={handleForgotPassword}
     >
       {({values, handleChange, isSubmitting, handleSubmit}): JSX.Element => (

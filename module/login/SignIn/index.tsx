@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import "./index.scss";
 import {Formik} from "formik";
-import {Form, Image, notification} from "antd";
+import {Form} from "antd";
 import {TextInput} from "@app/components/TextInput";
 import {ButtonSubmit} from "@app/components/ButtonSubmit";
 import {useMutation} from "react-query";
@@ -79,7 +80,7 @@ export function SignIn({changeTab}: SignInProps): JSX.Element {
     <Formik
       initialValues={{username: "", password: "", email: ""}}
       validate={(values) => validateSignIn(values, [errors, setErrors])}
-      validateOnChange={true}
+      validateOnChange
       onSubmit={handleLogin}
     >
       {({values, handleChange, isSubmitting, handleSubmit}): JSX.Element => (
@@ -124,9 +125,9 @@ export function SignIn({changeTab}: SignInProps): JSX.Element {
             />
           </Form>
           <div className="line">
-            <div className="line-l"></div>
+            <div className="line-l" />
             <p>Or continue with</p>
-            <div className="line-l"></div>
+            <div className="line-l" />
           </div>
           <div className="auth-form">
             <div className="google-auth">

@@ -1,9 +1,8 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import React, {useEffect, useState} from "react";
-import {MenuOutlined} from "@ant-design/icons";
 import {useDispatch, useSelector} from "react-redux";
 import {IRootState, persistor} from "@app/redux/store";
 import {loginUser, logoutUser} from "@app/redux/slices/UserSlice";
-import {toggleMenu} from "@app/redux/slices/MenuSlice";
 import {useQuery} from "react-query";
 import {IUserLogin} from "@app/types";
 import ApiUser from "@app/api/ApiUser";

@@ -1,3 +1,9 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable no-else-return */
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
+/* eslint-disable import/no-cycle */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
 import React, {useContext, useState} from "react";
 import {Form} from "antd";
 import Link from "next/link";
@@ -6,11 +12,20 @@ import {useMutation} from "react-query";
 import {IAccountInfo} from "@app/types";
 import {loginUser} from "@app/redux/slices/UserSlice";
 import {useDispatch} from "react-redux";
-import {DataContext} from "..";
 import {Formik} from "formik";
 import {TextInput} from "@app/components/TextInput";
 import {ButtonSubmit} from "@app/components/ButtonSubmit";
 import "./index.scss";
+import {DataContext} from "..";
+
+interface IContext {
+  emailAddress: string;
+  setEmailAddress: (email: string) => void;
+  username: string;
+  setUsername: (username: string) => void;
+  password: string;
+  setPassword: (password: string) => void;
+}
 
 interface VerifyOtpProps {
   changeTab: (tab: string) => void;
@@ -31,7 +46,7 @@ export function VerifyOtp({changeTab}: VerifyOtpProps): JSX.Element {
     setUsername,
     password,
     setPassword,
-  } = useContext(DataContext);
+  }: IContext = useContext(DataContext);
   // setEmailAddress("vietvodoi123454@gmail.com")
 
   const handleVerify = (
@@ -112,7 +127,7 @@ export function VerifyOtp({changeTab}: VerifyOtpProps): JSX.Element {
           });
         }
       }}
-      validateOnChange={true}
+      validateOnChange
       onSubmit={handleVerify}
       enableReinitialize
     >

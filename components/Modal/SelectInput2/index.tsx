@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import "./index.scss";
 import {Col, Row, Select} from "antd";
 import classNames from "classnames";

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import "./index.scss";
 import React, {useState} from "react";
 import ApiUser from "@app/api/ApiUser";
@@ -213,7 +214,7 @@ export function ModalFamilyCircumstance(props: ModalInfoProps): JSX.Element {
           columns={columns}
           dataSource={dataFamily || []}
           bordered
-          onRow={(record, rowIndex) => {
+          onRow={(record, _rowIndex) => {
             return {
               onDoubleClick: (): void => {
                 setIsToggleModal(true);

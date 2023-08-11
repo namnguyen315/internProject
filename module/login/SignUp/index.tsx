@@ -1,12 +1,14 @@
+/* eslint-disable consistent-return */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
+/* eslint-disable import/no-cycle */
 import "./index.scss";
 import {Formik} from "formik";
-import {Form, Image, notification} from "antd";
+import {Form} from "antd";
 import {TextInput} from "@app/components/TextInput";
 import {ButtonSubmit} from "@app/components/ButtonSubmit";
 import {useMutation} from "react-query";
 import ApiUser, {IRegisterBody} from "@app/api/ApiUser";
-import {useDispatch} from "react-redux";
-import {loginUser} from "@app/redux/slices/UserSlice";
 import {IAccountInfo} from "@app/types";
 import {useContext, useState} from "react";
 import {validateSignUp} from "@app/validate/user";
@@ -16,17 +18,9 @@ interface SignUpProps {
   changeTab: (tab: string) => void;
 }
 export function SignUp({changeTab}: SignUpProps): JSX.Element {
-  const dispatch = useDispatch();
   const registerMutation = useMutation(ApiUser.register);
   const sendOtpMutation = useMutation(ApiUser.sendOtp);
-  const {
-    emailAddress,
-    setEmailAddress,
-    username,
-    setUsername,
-    password,
-    setPassword,
-  } = useContext(DataContext);
+  const {setEmailAddress, setUsername, setPassword} = useContext(DataContext);
 
   const [errors, setErrors] = useState({
     emailValidate: {
@@ -154,7 +148,7 @@ export function SignUp({changeTab}: SignUpProps): JSX.Element {
       validate={(values) => {
         validateSignUp(values, [errors, setErrors]);
       }}
-      validateOnChange={true}
+      validateOnChange
       onSubmit={handleRegister}
     >
       {({values, handleChange, isSubmitting, handleSubmit}): JSX.Element => (

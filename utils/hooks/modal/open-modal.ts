@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {ComponentType} from "react";
 import {Subject} from "rxjs";
 import {modalSubject} from "./modal-subject";

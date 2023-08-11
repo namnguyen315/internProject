@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import "./index.scss";
 import {ModalCustom} from "@app/components/ModalCustom";
 import {Button, Col, DatePicker, Form, Image, Input, Row, Select} from "antd";

@@ -1,17 +1,23 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable react/style-prop-object */
+/* eslint-disable no-alert */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
+/* eslint-disable no-duplicate-imports */
 import "./index.scss";
 import React, {useEffect, useState} from "react";
-import {useSelector} from "react-redux";
+import {useSelector, useDispatch} from "react-redux";
 import {useRouter} from "next/router";
-import {useDispatch} from "react-redux";
 import {IRootState, persistor} from "@app/redux/store";
 import {IUserLogin} from "@app/types";
 import ApiUser, {IUpdateProfileBody} from "@app/api/ApiUser";
 import {useMutation, useQuery} from "react-query";
 import {queryKeys} from "@app/utils/constants/react-query";
 import {loginUser, logoutUser} from "@app/redux/slices/UserSlice";
-import {Form, Image, Modal, Upload, notification} from "antd";
+import {Image, Modal, Upload, notification} from "antd";
 import Icon from "@app/components/Icon/Icon";
-import {Formik, useFormik} from "formik";
+import {useFormik} from "formik";
 import {ButtonSubmit} from "@app/components/ButtonSubmit";
 import {TextInput} from "@app/components/TextInput";
 
@@ -169,7 +175,7 @@ export default function ProfileAccount() {
               <Image
                 preview={false}
                 src={
-                  !!formik.values.avatar
+                  formik.values.avatar
                     ? formik.values.avatar
                     : "/img/avatar/avatar.jpg"
                 }
@@ -214,8 +220,8 @@ export default function ProfileAccount() {
                   handleChange={formik.handleChange}
                   name="text"
                   type="text"
-                  style={"lightGrey"}
-                  disable={true}
+                  style="lightGrey"
+                  disable
                 />
               </div>
               <div>
@@ -226,8 +232,8 @@ export default function ProfileAccount() {
                   handleChange={formik.handleChange}
                   name="text"
                   type="text"
-                  style={"lightGrey"}
-                  disable={true}
+                  style="lightGrey"
+                  disable
                 />
               </div>
               <div className="phoneContainer">
@@ -238,7 +244,7 @@ export default function ProfileAccount() {
                   handleChange={formik.handleChange}
                   name="phoneNumber"
                   type="text"
-                  style={"lightGrey"}
+                  style="lightGrey"
                   disable={false}
                 />
               </div>
@@ -246,24 +252,24 @@ export default function ProfileAccount() {
                 <div className="lable">Phòng ban</div>
                 <TextInput
                   placeholder="Chưa có phòng ban"
-                  value={""}
+                  value=""
                   handleChange={formik.handleChange}
                   name="text"
                   type="text"
-                  style={"lightGrey"}
-                  disable={true}
+                  style="lightGrey"
+                  disable
                 />
               </div>
               <div>
                 <div className="lable">Chức vụ</div>
                 <TextInput
                   placeholder="Chưa có chức vụ"
-                  value={""}
+                  value=""
                   handleChange={formik.handleChange}
                   name="text"
                   type="text"
-                  style={"lightGrey"}
-                  disable={true}
+                  style="lightGrey"
+                  disable
                 />
               </div>
               <div className="button-handle">
@@ -282,7 +288,7 @@ export default function ProfileAccount() {
             </div>
           </div>
         </form>
-        <div style={{height: "20px"}}></div>
+        <div style={{height: "20px"}} />
       </div>
     </div>
   );

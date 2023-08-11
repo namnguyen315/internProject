@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
+/* eslint-disable consistent-return */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import "./index.scss";
 import React, {useState} from "react";
 import {Formik} from "formik";
@@ -6,7 +9,6 @@ import {TextInput} from "@app/components/TextInput";
 import {ButtonSubmit} from "@app/components/ButtonSubmit";
 import {useMutation} from "react-query";
 import ApiUser, {ISetPassword} from "@app/api/ApiUser";
-import {LeftOutlined} from "@ant-design/icons";
 import {validateNewPassWord} from "@app/validate/user";
 import Icon from "@app/components/Icon/Icon";
 
@@ -101,7 +103,7 @@ export function NewPassword({changeTab, data}: SignInProps): JSX.Element {
         //   });
         // }
       }}
-      validateOnChange={true}
+      validateOnChange
       onSubmit={handleSetPassword}
     >
       {({values, handleChange, isSubmitting, handleSubmit}): JSX.Element => (

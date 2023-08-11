@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-redeclare */
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import React, {useEffect, useState} from "react";
 import {logoutUser} from "@app/redux/slices/UserSlice";
 import {Form, Modal, notification} from "antd";

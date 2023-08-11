@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import "./index.scss";
 import {Input} from "antd";
 import React from "react";

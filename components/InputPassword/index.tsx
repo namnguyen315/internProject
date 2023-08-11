@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import "./index.scss";
 import {Col, Input, Row} from "antd";
 import {ChangeEvent} from "react";

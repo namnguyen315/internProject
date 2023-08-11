@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {fetcher, fetcherWithMetadata, IMetadata} from "./Fetcher";
 import store from "../redux/store";
 import {

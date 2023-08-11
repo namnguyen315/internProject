@@ -23,7 +23,7 @@ const PATHNAME = {
 const LAYOUT_CONFIG = {
   useSidebar: true,
   useNavbar: true,
-  useFooter: true,
+  useFooter: false,
   useBottomNavigator: true,
 };
 

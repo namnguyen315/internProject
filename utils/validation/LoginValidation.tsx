@@ -1,13 +1,13 @@
-import {IsEmail, IsNotEmpty, MaxLength, MinLength} from "class-validator";
+import {IsNotEmpty, MaxLength, MinLength} from "class-validator";
 
 /* eslint-disable no-useless-escape */
 export default class LoginValidation {
-  @IsEmail(
-    {pattern: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/},
-    {
-      message: "common_validation.email_is_not",
-    }
-  )
+  // @IsEmail(
+  //   {pattern: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/},
+  //   {
+  //     message: "common_validation.email_is_not",
+  //   }
+  // )
   @MaxLength(255, {
     message: "common_validation.email_longer",
   })

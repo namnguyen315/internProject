@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
+/* eslint-disable import/no-cycle */
 import {openModal, ModalProps, ModalWraper} from ".";
 import {Button} from "antd";
 
