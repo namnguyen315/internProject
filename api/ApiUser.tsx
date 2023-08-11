@@ -12,8 +12,13 @@ import axios from "axios";
 import Config from "@app/config";
 
 export interface ILoginBody {
-  username: string;
+  email?: string;
+  username?: string;
   password: string;
+}
+export interface IUpdateProfileBody {
+  fullName: string;
+  phoneNumber: string;
 }
 export interface IRegisterBody {
   email: string;
@@ -63,6 +68,10 @@ export interface IProfileBody {
   phoneNumber?: string;
   phoneNumberRelative?: string;
   gender?: string;
+
+  profile: {
+    phone: string;
+  };
 }
 
 export interface IInformationAccountBody {
@@ -140,7 +149,7 @@ const path = {
   verifyOtp: "/auth/verify-otp",
   changePassword: "/users/change-password",
   forgotpassword: "/auth/forgot-password",
-  setpassword: "/auth/set-password",
+  setpassword: "/auth/recover-password",
   getMe: "/users/me",
   getUserAccount: "/users",
   uploadAvatar: "/users/set-avatar",
@@ -182,9 +191,11 @@ function getListWorkType(): Promise<IWorkType[]> {
 function getMe(): Promise<IUserLogin> {
   return fetcher({url: path.getMe, method: "get"});
 }
-
+function deleteMe() {
+  return fetcher({url: path.getMe, method: "delete"});
+}
 function updateMe(data: IProfileBody): Promise<IUserLogin> {
-  return fetcher({url: path.getMe, method: "put", data});
+  return fetcher({url: path.getMe, method: "patch", data});
 }
 
 function updateInformationAccount(
@@ -334,6 +345,7 @@ function getAuthToken(): string | undefined {
 
 export default {
   login,
+  deleteMe,
   register,
   sendOtp,
   verify,

@@ -1,4 +1,64 @@
-.container {
+.container-change-password {
   font-size: $font-size-lg;
   color: $text-color;
+  width: 400px;
+  .header-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-items: center;
+    .btn-back-page {
+      width: 30px;
+      height: 30px;
+      display: flex;
+      background-color: #f6f6f6;
+      margin: 20px;
+      // align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 1;
+      .mr-2 {
+        margin: auto;
+      }
+    }
+    .btn-back-page:hover {
+      cursor: pointer;
+    }
+    .change-password-text {
+      height: 70px;
+      padding: 0px;
+      margin: 0px;
+      width: 100%;
+      display: flex;
+      position: absolute;
+      justify-content: center;
+      align-items: center;
+      font-size: 20px;
+      font-weight: 700;
+    }
+  }
+  .form {
+    background-color: #f6f6f6;
+    .input-container {
+      margin: auto;
+      width: 80%;
+    }
+    .input-container:first-child {
+      margin-top: 50px;
+    }
+    .validate {
+      color: red;
+      height: 60px;
+      padding: 0 15%;
+      display: flex;
+      align-items: center;
+    }
+    .button-container {
+      width: 80%;
+      margin: auto;
+      margin-bottom: 40px;
+    }
+    .pt-20 {
+      padding-top: 0px;
+    }
+  }
 }

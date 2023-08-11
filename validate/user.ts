@@ -1,3 +1,4 @@
+import {message} from "antd";
 export const validateMessages = {
   // eslint-disable-next-line no-template-curly-in-string
   required: "${label} không được để trống!",
@@ -92,7 +93,7 @@ export const layout = {
 export const validateSignIn = (
   values: {username: string; password: string},
   [errors, setErrors]: any
-) : any => {
+): any => {
   console.log("test", values);
   if (!values.username && !values.password) {
     return setErrors({
@@ -201,4 +202,94 @@ export const validateSignUp = (
   };
 
   setErrors(newErrors);
+};
+
+export const validateNewPassWord = (
+  values: {
+    email: string;
+    otp: string;
+    newPassword: string;
+    confirmPass: string;
+  },
+  [errors, setErrors]: any
+) => {
+  let newErrors = {...errors};
+  // Validate password
+  newErrors = {
+    ...newErrors,
+    passWord: !!values.newPassword
+      ? values.newPassword.length >= 6
+        ? {message: "", style: "lightGrey"}
+        : {message: "Mật khẩu phải chứa ít nhất 6 ký tự", style: "red"}
+      : {message: "Password không được để trống", style: "red"},
+  };
+
+  // Validate confirmPassword
+  newErrors = {
+    ...newErrors,
+    confirmPassWord: !!values.confirmPass
+      ? values.confirmPass === values.newPassword
+        ? {message: "", style: "lightGrey"}
+        : {
+            message: "Confirm password không trùng khớp với mật khẩu",
+            style: "red",
+          }
+      : {message: "Confirm không được để trống", style: "red"},
+  };
+  const regex = /^[0-9]{4,4}$/g;
+  newErrors = {
+    ...newErrors,
+    otp: !!values.otp
+      ? regex.test(values.otp)
+        ? {message: "", style: "lightGrey"}
+        : {message: "Mã OTP là các số nguyên có 4 ký tự", style: "red"}
+      : {message: "Vui lòng nhập mã OTP", style: "red"},
+  };
+  setErrors(newErrors);
+};
+
+export const validateCreateWorkspace = (
+  values: {
+    displayName: string;
+    contactEmail: string;
+    website: string;
+    memberSize: string;
+    photoFile: any;
+  },
+  [errors, setError]: any
+) => {
+  let newErrors = {...errors};
+
+  // validate displayName
+
+  newErrors = {
+    ...newErrors,
+    displayName: !!values.displayName
+      ? {message: "", style: "lightGrey"}
+      : {message: "Tên không gian làm việc không được để trống", style: "red"},
+  };
+
+  // validate website
+  const urlPattern =
+    /^(https?:\/\/)?(www\.)?([a-zA-Z0-9-]+\.)*[a-zA-Z0-9-]+\.[a-zA-Z]{2,}(\/.*)*$/;
+  newErrors = {
+    ...newErrors,
+    website: !!values.website
+      ? urlPattern.test(values.website)
+        ? {message: "", style: "lightGrey"}
+        : {message: "Website không đúng định dạng", style: "red"}
+      : {message: "", style: "lightGrey"},
+  };
+
+  //validate email
+  const regex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+  newErrors = {
+    ...newErrors,
+    contactEmail: !!values.contactEmail
+      ? regex.test(values.contactEmail)
+        ? {message: "", style: "lightGrey"}
+        : {message: "Email không hợp lệ", style: "red"}
+      : {message: "", style: "lightGrey"},
+  };
+  setError(newErrors);
 };

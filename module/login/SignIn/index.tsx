@@ -36,27 +36,40 @@ export function SignIn({changeTab}: SignInProps): JSX.Element {
     {setSubmitting}: {setSubmitting: (isSubmitting: boolean) => void}
   ): void => {
     if (values.username && values.password) {
-      loginMutation.mutate(
-        {username: values.username, password: values.password},
-        {
-          onSuccess: (res: IAccountInfo) => {
-            dispatch(loginUser({...res}));
-            localStorage.setItem("role", res.role?.id?.toString() || "0");
-            setSubmitting(true);
-            window.location.replace("/");
-          },
-          onError: (error) => {
-            setSubmitting(false);
-            setErrors({
-              ...errors,
-              passwordValidate: {
-                ...errors.passwordValidate,
-                message: "*Mật khẩu và tài khoản không chính xác",
-              },
-            });
-          },
-        }
-      );
+      let option = {email: "", password: "", username: ""};
+      if (
+        /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/.test(values.username)
+      ) {
+        option = {
+          email: values.username,
+          password: values.password,
+          username: "",
+        };
+      } else {
+        option = {
+          username: values.username,
+          password: values.password,
+          email: "",
+        };
+      }
+      loginMutation.mutate(option, {
+        onSuccess: (res: IAccountInfo) => {
+          dispatch(loginUser({...res}));
+          localStorage.setItem("role", res.role?.id?.toString() || "0");
+          setSubmitting(true);
+          window.location.replace("/");
+        },
+        onError: (error) => {
+          setSubmitting(false);
+          setErrors({
+            ...errors,
+            passwordValidate: {
+              ...errors.passwordValidate,
+              message: "Mật khẩu và tài khoản không chính xác",
+            },
+          });
+        },
+      });
     } else {
       console.log("abcd");
       setSubmitting(false);
@@ -64,7 +77,7 @@ export function SignIn({changeTab}: SignInProps): JSX.Element {
   };
   return (
     <Formik
-      initialValues={{username: "", password: ""}}
+      initialValues={{username: "", password: "", email: ""}}
       validate={(values) => validateSignIn(values, [errors, setErrors])}
       validateOnChange={true}
       onSubmit={handleLogin}
@@ -74,7 +87,6 @@ export function SignIn({changeTab}: SignInProps): JSX.Element {
           <Form onFinish={handleSubmit} className="container-sign-in">
             <div style={{color: "red"}}>
               <TextInput
-                label="Tài khoản"
                 placeholder="Nhập tài khoản"
                 value={values.username}
                 handleChange={handleChange}
@@ -85,7 +97,6 @@ export function SignIn({changeTab}: SignInProps): JSX.Element {
             <div className="validate">{errors.userValidate.message}</div>
             <div>
               <TextInput
-                label="Mật khẩu"
                 placeholder="Nhập mật khẩu"
                 value={values.password}
                 handleChange={handleChange}

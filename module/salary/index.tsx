@@ -20,7 +20,7 @@ export function Salary(): JSX.Element {
   //   return ApiSalary.getMyListTotalSalary(year);
   // };
 
-  // // const {data} =
+  // const {data} =
   //   useQuery(queryKeys.GET_LIST_TOTAL_SALARY_OF_USER, getListTotalSalary) || [];
 
   const dataYear = (): JSX.Element => {

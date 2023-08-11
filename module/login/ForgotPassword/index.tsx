@@ -100,7 +100,6 @@ export function ForgotPassword({changeTab, setData}: SignInProps): JSX.Element {
           <Form onFinish={handleSubmit} className="form">
             <TextInput
               placeholder="Nhập email"
-              label="Email"
               value={values.email}
               handleChange={handleChange}
               name="email"

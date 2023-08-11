@@ -1,0 +1,128 @@
+.profile-container {
+  width: 50%;
+  height: 100%;
+  margin: auto;
+
+  .header {
+    font-size: 25px;
+    color: black;
+    margin-bottom: 20px;
+    font-weight: 500;
+  }
+  .form {
+    // border: 1px solid lightgray;
+    border-radius: 10px;
+    width: 100%;
+    height: 100%;
+    margin-bottom: 100px;
+
+    .topSite {
+      border-radius: 10px 10px 0px 0px;
+      height: 170px;
+      width: 100%;
+      background: linear-gradient(90deg, #8961ff, #71bbff);
+
+      .avata {
+        width: 200px;
+        height: 200px;
+        top: 70px;
+        left: 40px;
+        position: relative;
+        // .ant-image {
+        // }
+        .icon {
+          position: relative;
+          top: -47px;
+          left: 150px;
+          z-index: 999;
+          width: 43px;
+          height: 43px;
+          border-radius: 50%;
+          background-color: lightgray;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          .mr-2 {
+            margin-right: 0px;
+          }
+        }
+      }
+    }
+    .bottomSite {
+      border-radius: 0px 0px 10px 10px;
+      border: 1px solid lightgray;
+      background-color: white;
+      padding-top: 120px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      input {
+        font-weight: 500;
+      }
+      .container-form-input {
+        width: 80%;
+        .ant-input-clear-icon-hidden {
+          visibility: hidden;
+        }
+        .input-container {
+          margin-bottom: 20px;
+        }
+      }
+      .lable {
+        padding-left: 2px;
+        padding-bottom: 2px;
+        color: #2b2b2b;
+        font-size: 16px;
+        font-weight: 600;
+        line-height: 150%;
+      }
+
+      .fullNameContainer,
+      .phoneContainer {
+        .ant-input-affix-wrapper,
+        .ant-input {
+          background-color: rgb(240, 242, 255);
+        }
+      }
+      .button-handle {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 20px;
+        .pt-20 {
+          padding-top: 0px;
+        }
+        .button-container {
+          width: 150px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+        .delete-button,
+        .cancel-button {
+          height: 48px;
+          background-color: rgb(218, 0, 0);
+          border: none;
+          border-radius: 8px;
+          font-size: 16px;
+          font-weight: 700;
+          text-shadow: none;
+          color: #ffffff;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          cursor: pointer;
+        }
+        .delete-button {
+          width: 150px;
+        }
+        .cancel-button {
+          margin-left: auto;
+          margin-right: 10px;
+          width: 100px;
+        }
+      }
+    }
+  }
+}

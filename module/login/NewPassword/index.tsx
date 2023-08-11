@@ -1,5 +1,5 @@
 import "./index.scss";
-import React from "react";
+import React, {useState} from "react";
 import {Formik} from "formik";
 import {Form, notification} from "antd";
 import {TextInput} from "@app/components/TextInput";
@@ -7,6 +7,8 @@ import {ButtonSubmit} from "@app/components/ButtonSubmit";
 import {useMutation} from "react-query";
 import ApiUser, {ISetPassword} from "@app/api/ApiUser";
 import {LeftOutlined} from "@ant-design/icons";
+import {validateNewPassWord} from "@app/validate/user";
+import Icon from "@app/components/Icon/Icon";
 
 interface SignInProps {
   changeTab: (tab: string) => void;
@@ -14,6 +16,20 @@ interface SignInProps {
 }
 
 export function NewPassword({changeTab, data}: SignInProps): JSX.Element {
+  const [errors, setErrors] = useState({
+    passWord: {
+      message: "",
+      style: "lightGrey",
+    },
+    confirmPassWord: {
+      message: "",
+      style: "lightGrey",
+    },
+    otp: {
+      message: "",
+      style: "lightGrey",
+    },
+  });
   const setPassword = useMutation(ApiUser.setPassword);
   const handleSetPassword = (
     values: ISetPassword,
@@ -41,8 +57,17 @@ export function NewPassword({changeTab, data}: SignInProps): JSX.Element {
               message: "Đổi mật khẩu thành công!",
             });
           },
-          onError: (error) => {
-            setSubmitting(false);
+          onError: (error: any) => {
+            if (error.errorCode.includes("OTP_FAIL")) {
+              setSubmitting(false);
+              return setErrors({
+                ...errors,
+                otp: {
+                  message: "Mã OTP không chính xác",
+                  style: "red",
+                },
+              });
+            }
           },
         }
       );
@@ -55,71 +80,74 @@ export function NewPassword({changeTab, data}: SignInProps): JSX.Element {
     <Formik
       initialValues={{newPassword: "", confirmPass: "", otp: "", email: data}}
       validate={(values) => {
-        if (!values.newPassword || !values.confirmPass || !values.otp) {
-          notification.error({
-            message:
-              "Mật khẩu mới, Xác nhận mật khẩu, OTP không được để trống!",
-          });
-          return;
-        }
-        if (values.newPassword !== values.confirmPass) {
-          notification.error({
-            message: "Mật khẩu mới và Xác nhận mật khẩu không trùng nhau!",
-          });
-          return;
-        }
-        const regex = /^[0-9]{4,4}$/g;
-        if (!regex.test(values.otp)) {
-          notification.error({
-            message: "OTP phải là số nguyên 4 ký tự!",
-          });
-        }
+        validateNewPassWord(values, [errors, setErrors]);
+        // if (!values.newPassword || !values.confirmPass || !values.otp) {
+        //   notification.error({
+        //     message:
+        //       "Mật khẩu mới, Xác nhận mật khẩu, OTP không được để trống!",
+        //   });
+        //   return;
+        // }
+        // if (values.newPassword !== values.confirmPass) {
+        //   notification.error({
+        //     message: "Mật khẩu mới và Xác nhận mật khẩu không trùng nhau!",
+        //   });
+        //   return;
+        // }
+        // const regex = /^[0-9]{4,4}$/g;
+        // if (!regex.test(values.otp)) {
+        //   notification.error({
+        //     message: "OTP phải là số nguyên 4 ký tự!",
+        //   });
+        // }
       }}
-      validateOnChange={false}
+      validateOnChange={true}
       onSubmit={handleSetPassword}
     >
       {({values, handleChange, isSubmitting, handleSubmit}): JSX.Element => (
-        <div className="container-sign-in">
-          <button
-            type="button"
-            className="btn-back-page"
-            onClick={(): void => changeTab("forgotPassword")}
-          >
-            <LeftOutlined />
-          </button>
-          <Form onFinish={handleSubmit} className="container-sign-in">
-            <div className="header-wrapper">
-              <div className="login-text">NHẬP MẬT KHẨU MỚI</div>
-            </div>
-            <div className="mb-5">
-              <TextInput
-                placeholder="Nhập mật khẩu mới"
-                label="Mật khẩu mới"
-                value={values.newPassword}
-                handleChange={handleChange}
-                name="newPassword"
-                type="password"
+        <div className="container-change-password">
+          <div className="header-wrapper">
+            <button
+              type="button"
+              className="btn-back-page"
+              onClick={(): void => changeTab("forgotPassword")}
+            >
+              <Icon
+                icon="ArrowLeft2"
+                size={20}
+                color="rgb(68, 97, 242)"
+                className="mr-2"
               />
-            </div>
-            <div className="mb-5">
-              <TextInput
-                placeholder="Xác nhận mật khẩu"
-                label="Xác nhận mật khẩu"
-                value={values.confirmPass}
-                handleChange={handleChange}
-                name="confirmPass"
-                type="password"
-              />
-            </div>
-            <div>
-              <TextInput
-                placeholder="Nhập OTP"
-                label="OTP"
-                value={values.otp}
-                handleChange={handleChange}
-                name="otp"
-              />
-            </div>
+            </button>
+            <div className="change-password-text">NHẬP MẬT KHẨU MỚI</div>
+          </div>
+          <Form onFinish={handleSubmit} className="form">
+            <TextInput
+              placeholder="Nhập mật khẩu mới"
+              value={values.newPassword}
+              handleChange={handleChange}
+              name="newPassword"
+              type="password"
+              style={errors.passWord.style}
+            />
+            <div className="validate">{errors.passWord.message}</div>
+            <TextInput
+              placeholder="Xác nhận mật khẩu"
+              value={values.confirmPass}
+              handleChange={handleChange}
+              name="confirmPass"
+              type="password"
+              style={errors.confirmPassWord.style}
+            />
+            <div className="validate">{errors.confirmPassWord.message}</div>
+            <TextInput
+              placeholder="Nhập OTP"
+              value={values.otp}
+              handleChange={handleChange}
+              name="otp"
+              style={errors.otp.style}
+            />
+            <div className="validate">{errors.otp.message}</div>
             <ButtonSubmit
               label="Xác nhận"
               isSubmitting={isSubmitting}

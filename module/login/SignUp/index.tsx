@@ -71,15 +71,71 @@ export function SignUp({changeTab}: SignUpProps): JSX.Element {
                   console.log("success");
                 },
                 onError: (error) => {
-                  console.log(error);
+                  console.log("err2");
                   setSubmitting(false);
                 },
               }
             );
           },
-          onError: (error) => {
-            console.log("err1");
-            setSubmitting(false);
+          onError: (error: any) => {
+            if (error.errorCode.includes("EMAIL_EXISTED")) {
+              setSubmitting(false);
+              return setErrors({
+                ...errors,
+                emailValidate: {
+                  message: "Email đã tồn tại",
+                  style: "red",
+                },
+              });
+            }
+            if (error.errorCode.includes("REGISTERED_MUST_VERIFY_EMAIL")) {
+              console.log("values.email", values.email);
+              setEmailAddress(values.email);
+              //   console.log("emailAddress",emailAddress);
+              setUsername(values.email);
+              sendOtpMutation.mutate(
+                {email: values.email},
+                {
+                  onSuccess: () => {
+                    console.log("success");
+                    changeTab("verifyOtp");
+                  },
+                  onError: (error) => {
+                    console.log("lỗi gửi otp");
+                    setSubmitting(false);
+                  },
+                }
+              );
+              // return setErrors({
+              //   ...errors,
+              //   emailValidate: {
+              //     message: "Email đang chờ xác thực",
+              //     style:"red"
+              //   }
+              // })
+            }
+            // if (error.errorCode.includes("")) {
+            //   changeTab("verifyOtp");
+            //   setEmailAddress(values.email);
+            //   setErrors({
+            //     ...errors,
+            //     emailValidate: {
+            //       message: "Email đang chờ xác thực",
+            //       style:"red"
+            //     }
+            //   })
+            //   setSubmitting(false);
+            // }
+            else {
+              setErrors({
+                ...errors,
+                emailValidate: {
+                  message: "",
+                  style: "lightGrey",
+                },
+              });
+              setSubmitting(false);
+            }
           },
         }
       );
@@ -87,7 +143,6 @@ export function SignUp({changeTab}: SignUpProps): JSX.Element {
       setSubmitting(false);
     }
   };
-  // console.log(errors);
   return (
     <Formik
       initialValues={{
@@ -107,7 +162,6 @@ export function SignUp({changeTab}: SignUpProps): JSX.Element {
           <Form onFinish={handleSubmit} className="container-sign-up">
             <div>
               <TextInput
-                label="email"
                 placeholder="Nhập email"
                 value={values.email}
                 handleChange={handleChange}
@@ -119,7 +173,6 @@ export function SignUp({changeTab}: SignUpProps): JSX.Element {
             </div>
             <div className="pt-20">
               <TextInput
-                label="Tài khoản"
                 placeholder="Nhập tên tài khoản"
                 value={values.username}
                 handleChange={handleChange}
@@ -131,7 +184,6 @@ export function SignUp({changeTab}: SignUpProps): JSX.Element {
             <div className="validate">{errors.userValidate.message}</div>
             <div className="pt-20">
               <TextInput
-                label="Mật khẩu"
                 placeholder="Nhập mật khẩu"
                 value={values.password}
                 handleChange={handleChange}
@@ -143,7 +195,6 @@ export function SignUp({changeTab}: SignUpProps): JSX.Element {
             <div className="validate">{errors.passwordValidate.message}</div>
             <div className="pt-20">
               <TextInput
-                label="Mật khẩu"
                 placeholder="Nhập lại mật khẩu"
                 value={values.confirmPassword}
                 handleChange={handleChange}
@@ -162,7 +213,6 @@ export function SignUp({changeTab}: SignUpProps): JSX.Element {
               classRow="pt-20"
             />
           </Form>
-          <button onClick={() => changeTab("verifyOtp")}>submit</button>
         </div>
       )}
     </Formik>

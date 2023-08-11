@@ -1,83 +1,156 @@
 .sidebar {
-  background-color: $sidebar-background;
-  height: 100vh;
+  // background-color: $sidebar-background;
+  background-color: white;
+  border: 1px solid lightgray;
+  height: calc(100vh - $navbar-height);
   width: $sidebar-width;
-  top: 0;
-  position: fixed;
+  top: $navbar-height;
+  position: relative;
   left: 0;
-  overflow-y: auto;
+  // overflow-y: auto;
+  z-index: 1;
   transition: width $transition-layout-time;
-  z-index: 2;
   &::-webkit-scrollbar {
     width: 0;
   }
-
+  .icon-workspace {
+    display: none;
+  }
   &.open {
     width: $sidebar-width-close;
     left: 0;
     -webkit-box-shadow: 5px 0px 30px 0px rgba(0, 0, 0, 0.2);
     -moz-box-shadow: 5px 0px 30px 0px rgba(0, 0, 0, 0.2);
     box-shadow: 5px 0px 30px 0px rgba(0, 0, 0, 0.2);
-  }
-
-  .logo-container {
-    padding: $spacer;
-    display: flex;
-
-    h1 {
-      color: white;
+    .workspace-container {
+      width: 50px;
+      border: none;
+      svg {
+        display: none;
+      }
+      p {
+        display: none;
+      }
+      .botton-create-workspace {
+        display: none;
+      }
+    }
+    .icon-workspace {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 50px;
+      cursor: pointer;
+    }
+    .sidebar-item {
+      .icon {
+        svg {
+          margin-right: 0px;
+        }
+      }
+      .title {
+        display: none;
+      }
     }
   }
 
+  .ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected {
+    background-color: #e3eeff;
+  }
   .sidebar-item {
     display: flex;
+    flex-direction: row;
     align-items: center;
     margin: 0.5rem 0 0.5rem 0;
     padding: 1rem 24px 1rem 24px;
 
-    color: white !important;
+    color: black !important;
 
-    transition: background-color 0.3s;
-
-    background: rgba(0, 0, 0, 0);
-
-    &:hover {
-      background-color: rgba(255, 255, 255, 0.1);
-    }
-
-    svg {
-      width: 14px;
-      height: 14px;
-      color: white;
-      margin-right: 10px;
+    background: rgb(255, 255, 255);
+    .ant-menu-title-content {
+      display: flex;
+      flex-direction: row;
+      // align-items: center;
     }
 
     span {
+      display: flex;
+      align-items: center;
+      color: #575757;
+      font-weight: 500;
+      .icon {
+        width: 50px;
+        svg {
+          color: black;
+          margin-right: 10px;
+        }
+      }
+    }
+  }
+  .workspace-container {
+    // height: 220px;
+    width: 235px;
+    border: 1px solid blue;
+    border-radius: 10px;
+    margin: 100px auto;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: width $transition-layout-time ease;
+    p {
+      text-align: center;
+    }
+    .botton-create-workspace {
+      height: 40px;
+      width: 110px;
+      border-radius: 8px;
+      background-color: #1c7fff;
       color: white;
+      font-weight: 500;
+      margin-top: 20px;
+      margin-bottom: 20px;
+    }
+  }
+  .arrowButtonContainer {
+    width: 40px;
+    height: 40px;
+    border-radius: 100%;
+    background-color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 30%;
+    right: -20px;
+    z-index: 9999;
+    .open {
+      display: none;
     }
   }
 }
 
-.sidebar-overlay {
-  background-color: black;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-  display: block;
-  visibility: hidden;
-  transition: visibility $transition-layout-time,
-    opacity $transition-layout-time;
-  z-index: 1000;
+// .sidebar-overlay {
+//   background-color: black;
+//   position: fixed;
+//   top: 0;
+//   left: 0;
+//   width: 100%;
+//   height: 100%;
+//   opacity: 0;
+//   display: block;
+//   visibility: hidden;
+//   transition: visibility $transition-layout-time,
+//     opacity $transition-layout-time;
+//   z-index: 1000;
 
-  &:hover {
-    cursor: pointer;
-  }
+//   &:hover {
+//     cursor: pointer;
+//   }
 
-  &.open {
-    visibility: visible;
-    opacity: 0.3;
-  }
-}
+//   &.open {
+//     visibility: visible;
+//     opacity: 0.3;
+//   }
+// }

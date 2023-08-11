@@ -7,13 +7,19 @@ import {toggleMenu} from "@app/redux/slices/MenuSlice";
 import {useQuery} from "react-query";
 import {IUserLogin} from "@app/types";
 import ApiUser from "@app/api/ApiUser";
-import {Dropdown, Image, Menu, Modal} from "antd";
+import {Dropdown, Image, Input, Menu, Modal} from "antd";
 import Icon from "@app/components/Icon/Icon";
 import {queryKeys} from "@app/utils/constants/react-query";
 import {useRouter} from "next/router";
 import {ModalChangePassword} from "@app/components/Layout/Navbar/ModalChangePassword";
 import "./Navbar.scss";
 import Link from "next/link";
+import {
+  BiSolidGrid,
+  BiSolidBell,
+  BiSearch,
+  BiSolidDownArrow,
+} from "react-icons/bi";
 /**
  *
  */
@@ -65,60 +71,85 @@ export default function Navbar(): JSX.Element {
    * @returns {*}
    */
   const renderDropdown = (): JSX.Element => (
-    <>
-      <div className="inforUser">
-        <Image
-          src={dataUser?.data?.avatar || "/img/avatar/avatar.jpg"}
-          preview={false}
-          width={30}
-          height={30}
-          fallback="/img/avatar/avatar.jpg"
-          className="rounded-full"
-          alt="avatar"
-        />
-        <p>{dataUser?.data?.email}</p>
-      </div>
-      <Menu>
-        <Menu.Item key="0" onClick={() => setToggleModal(true)}>
-          {toggleModal && (
-            <ModalChangePassword
-              isModalVisible
-              setToggleModal={setToggleModal}
-            />
-          )}
+    <Menu>
+      <Menu.Item key="0" onClick={() => setToggleModal(true)}>
+        {toggleModal && (
+          <ModalChangePassword isModalVisible setToggleModal={setToggleModal} />
+        )}
+        <div>
+          {/* <Icon icon="BlockUser" size={20} color="#000" className="mr-2" /> */}
+          Đổi mật khẩu
+        </div>
+      </Menu.Item>
+      <Menu.Item key="1">
+        <Link href="/profile-account">
           <div>
-            <Icon icon="BlockUser" size={20} color="#000" className="mr-2" />
-            Đổi mật khẩu
+            {/* <Icon icon="User" size={20} color="#000" className="mr-2" /> */}
+            Thông tin tài khoản
           </div>
-        </Menu.Item>
-        <Menu.Divider />
-        <Menu.Item key="1" onClick={handleLogout}>
+        </Link>
+      </Menu.Item>
+      <Menu.Divider />
+      <Menu.Item key="2">
+        <Link href="/">
           <div>
-            <Icon icon="SignOut" size={20} color="#000" className="mr-2" />
-            Đăng xuất
+            {/* <Icon icon="User" size={20} color="#000" className="mr-2" /> */}
+            Đánh giá
           </div>
-        </Menu.Item>
-        <Menu.Divider />
-        <Menu.Item key="2" onClick={handleLogout}>
-          <Link href="/updateUser">
-            <div>
-              <Icon icon="User" size={20} color="#000" className="mr-2" />
-              Cập nhật tài khoản
-            </div>
-          </Link>
-        </Menu.Item>
-      </Menu>
-    </>
+        </Link>
+      </Menu.Item>
+      <Menu.Item key="3">
+        <Link href="/">
+          <div>
+            {/* <Icon icon="User" size={20} color="#000" className="mr-2" /> */}
+            Liên hệ hỗ trợ
+          </div>
+        </Link>
+      </Menu.Item>
+      <Menu.Item key="4">
+        <Link href="/">
+          <div>
+            {/* <Icon icon="User" size={20} color="#000" className="mr-2" /> */}
+            Điều khoản dịch vụ
+          </div>
+        </Link>
+      </Menu.Item>
+      <Menu.Divider />
+      <Menu.Item key="5" onClick={handleLogout}>
+        <div>
+          {/* <Icon icon="SignOut" size={20} color="#000" className="mr-2" /> */}
+          Đăng xuất
+        </div>
+      </Menu.Item>
+    </Menu>
   );
-
   return (
-    <div className="navbar flex items-center justify-between">
-      <div className="flex items-center">
+    <div className="navbar">
+      {/* <div className="flex items-center">
         <MenuOutlined
           onClick={(): void => {
             dispatch(toggleMenu());
           }}
         />
+      </div> */}
+      <div className="logo-container">
+        <Image src="/img/logo_detail.png" width={100} height={50} alt="logo" />
+      </div>
+      <Input
+        placeholder="Search"
+        prefix={
+          <BiSearch
+            className="site-form-item-icon"
+            style={{width: "20px", height: "20px"}}
+          />
+        }
+        suffix={<BiSolidDownArrow />}
+      />
+      <div className="notifications">
+        <BiSolidBell />
+      </div>
+      <div className="setting">
+        <BiSolidGrid />
       </div>
       <div className="group-user-info">
         <Dropdown overlay={renderDropdown()} trigger={["click"]}>

@@ -31,3 +31,48 @@
     }
   }
 }
+.navbar {
+  display: flex;
+  flex-direction: row;
+  padding: 0px;
+  align-items: center;
+  width: 100%;
+  .logo-container {
+    width: calc($sidebar-width - 10px);
+    height: $height-logo;
+    // padding: $spacer;
+    // margin-right: calc($sidebar-width - $width-logo - 10px);
+    display: flex;
+
+    .ant-image {
+      margin: auto;
+    }
+  }
+  .ant-input-affix-wrapper {
+    width: 25%;
+    border-radius: 30px;
+    height: 35px;
+    font-weight: 500;
+    margin-right: auto;
+    .ant-input-prefix {
+      margin-right: 10px;
+      color: Darkgray;
+      padding-top: 3px;
+    }
+    .ant-input-suffix {
+      color: Darkgray;
+    }
+  }
+  .notifications,
+  .setting {
+    margin-right: 30px;
+    svg {
+      width: 20px;
+      height: 20px;
+      fill: darkgray;
+    }
+  }
+  .group-user-info {
+    right: 20px;
+  }
+}

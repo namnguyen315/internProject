@@ -20,7 +20,7 @@ interface IContext {
   setPassword: (password: string) => void;
 }
 
-const DEFAULT_CONTEXT: IContext = {
+const DEFAULT_DATA_CONTEXT: IContext = {
   emailAddress: "",
   setEmailAddress: () => {},
   username: "",
@@ -29,7 +29,7 @@ const DEFAULT_CONTEXT: IContext = {
   setPassword: () => {},
 };
 
-export const DataContext = createContext(DEFAULT_CONTEXT);
+export const DataContext = createContext(DEFAULT_DATA_CONTEXT);
 
 export function Login(): JSX.Element {
   const [styleSignIn, setStyleSignIn] = useState("actived");

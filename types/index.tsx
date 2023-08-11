@@ -303,12 +303,17 @@ export interface IUserLogin {
   fullName?: string;
   state?: number;
   email?: string;
+  username?: string;
   dateOfBirth?: string;
   position?: IWorkType | null;
   avatar?: string;
+  avatarUrl?: string;
   personId?: string;
   address?: string;
   phoneNumber?: string;
+  profile?: {
+    phone: string;
+  };
   role?: {
     id?: IAccountRole;
     roleName?: string;

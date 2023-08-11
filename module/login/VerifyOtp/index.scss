@@ -39,8 +39,13 @@ $active: 26px;
       height: 40px;
     }
   }
+  .validate {
+    color: red;
+    text-align: center;
+  }
   .resendOTP {
     color: black;
+    margin-top: 10px;
     margin-bottom: 30px;
     padding-right: 30px;
     text-align: end;

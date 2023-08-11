@@ -38,11 +38,13 @@ export function VerifyOtp({changeTab}: VerifyOtpProps): JSX.Element {
     values: IVerifyBody,
     {setSubmitting}: {setSubmitting: (isSubmitting: boolean) => void}
   ): void => {
+    console.log("verify", emailAddress);
     if (values.otp && emailAddress) {
       VerifyMutation.mutate(
         {email: emailAddress, otp: values.otp},
         {
           onSuccess: (res: IAccountInfo) => {
+            console.log("được rồi nhưng chưa đăng nhập");
             loginMutation.mutate(
               {username: username, password: password},
               {
@@ -53,16 +55,17 @@ export function VerifyOtp({changeTab}: VerifyOtpProps): JSX.Element {
                   window.location.replace("/");
                 },
                 onError: (error) => {
-                  setOtpValidate({
-                    message: "OTP không chính xác",
-                    style: "red",
-                  });
+                  changeTab("forgotPassword");
                   setSubmitting(false);
                 },
               }
             );
           },
           onError: (error) => {
+            setOtpValidate({
+              message: "Mã OTP không chính xác",
+              style: "red",
+            });
             setSubmitting(false);
           },
         }
@@ -72,6 +75,7 @@ export function VerifyOtp({changeTab}: VerifyOtpProps): JSX.Element {
     }
   };
   const handleResendOtp = () => {
+    console.log(emailAddress);
     sendOtpMutation.mutate(
       {email: emailAddress},
       {
@@ -92,13 +96,13 @@ export function VerifyOtp({changeTab}: VerifyOtpProps): JSX.Element {
         const regex = /^[0-9]{4,4}$/g;
         if (!values.otp) {
           return setOtpValidate({
-            message: "Vui lòng nhập OTP",
+            message: "Vui lòng nhập mã OTP",
             style: "red",
           });
         }
         if (!regex.test(values.otp)) {
           return setOtpValidate({
-            message: "OTP là các số nguyên có 4 ký tự",
+            message: "Mã OTP là các số nguyên có 4 ký tự",
             style: "red",
           });
         } else {
@@ -126,7 +130,6 @@ export function VerifyOtp({changeTab}: VerifyOtpProps): JSX.Element {
           <Form onFinish={handleSubmit} className="container-verify">
             <div className="pt-20">
               <TextInput
-                label="OTP"
                 placeholder=""
                 value={values.otp}
                 handleChange={handleChange}
@@ -134,9 +137,6 @@ export function VerifyOtp({changeTab}: VerifyOtpProps): JSX.Element {
                 type="OTP"
                 style={otpValidate.style}
               />
-            </div>
-            <div className="validate">
-              {/* {errors.confirmPasswordValidate.message} */}
             </div>
             <ButtonSubmit
               label="Verify"
