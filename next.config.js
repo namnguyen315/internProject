@@ -3,6 +3,7 @@ const path = require("path");
 /** @type {import('next').NextConfig} */
 module.exports = {
   reactStrictMode: true,
+  distDir: "build",
   sassOptions: {
     includePaths: [path.join(__dirname, "styles")],
     prependData: `@import "./global";`,
